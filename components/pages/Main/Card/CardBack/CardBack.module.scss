@@ -1,0 +1,78 @@
+.CardBack {
+	width: 100%;
+	height: 100%;
+	border-radius: 20px;
+	padding: 20px;
+	backface-visibility: hidden;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+	transform: rotateY(-180deg);
+}
+
+.MagnetLine {
+	width: 100%;
+	height: 30px;
+	position: absolute;
+	top: 30px;
+	left: 0;
+	background-color: #000;
+}
+
+.CVCLine {
+	position: absolute;
+	left: 20px;
+	right: 20px;
+	top: 35%;
+	height: 50px;
+	background-color: #fff;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	overflow: hidden;
+}
+
+.BackCardHolderName {
+	color: #000;
+	padding-left: 30px;
+}
+
+.CVC {
+	height: 100%;
+	padding: 0 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #999999;
+	color: #000;
+	width: 70px;
+}
+
+.CVCWrapper {
+	position: relative;
+	width: 100%;
+}
+
+.Numbers {
+	position: absolute;
+	left: 0;
+	top: 0;
+	transform: translateY(-50%);
+	height: 20px;
+}
+
+.DecorLine {
+	position: absolute;
+	left: 20px;
+	top: 90%;
+	height: 10px;
+	background-color: #fff;
+	width: 30%;
+
+	&.Long {
+		top: 80%;
+		width: 40%;
+	}
+}

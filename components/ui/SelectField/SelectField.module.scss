@@ -1,0 +1,30 @@
+.TextField {
+	width: 100%;
+	position: relative;
+}
+
+.Label {
+	position: absolute;
+	left: 20px;
+	top: 0;
+	transform: translateY(-50%);
+	z-index: 1;
+	display: block;
+	color: #000;
+	background-color: #fff;
+	padding: 0 5px;
+}
+
+.Select {
+	width: 100%;
+	padding: 15px 20px;
+	border: 1px solid #000;
+	border-radius: 10px;
+	background-color: #fff;
+	color: #000;
+	appearance: none;
+	background-image: url('../../../public/arrow.svg');
+	background-repeat: no-repeat;
+	background-position: right;
+	background-size: 48px 32px;
+}

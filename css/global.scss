@@ -1,0 +1,33 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body,
+:root {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+	background: linear-gradient(to right, #F7BB97, #DD5E89);
+	color-scheme: dark;
+}
+
+button {
+	border: none;
+	outline: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+input, textarea, select {
+	background-color: transparent;
+	outline: none;
+	border: none;
+	border-radius: unset;
+}
