@@ -1,8 +1,8 @@
 import classes from './AnimatedNumbers.module.scss'
 import {FC, PropsWithChildren} from 'react'
-import {incrementMargin} from '../../../utils/incrementMargin/incrementMargin'
+import {incrementMargin} from '@utils/incrementMargin/incrementMargin'
 import {AnimatePresence, motion} from 'framer-motion'
-import {textMotion} from '../../../motions/textMotion'
+import {textMotion} from '@motions/textMotion'
 
 interface AnimatedNumbersProps {
 	numbers: string

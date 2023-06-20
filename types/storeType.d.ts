@@ -1,5 +1,5 @@
-export interface StoreType {
-	cardData: CardData
+export type StoreType = {
+	cardData: CardData,
 	changeData: (name: string, value: string) => void
 }
 

@@ -1,11 +1,13 @@
 import classes from './Form.module.scss'
 import {ChangeEvent, FC, PropsWithChildren, useEffect, useState} from 'react'
-import {TextField} from '../../../ui/TextField/TextField'
-import {useCard} from '../../../../store/store'
-import {CardData} from '../../../../types/storeType'
-import {getDateInputsOptions} from '../../../../utils/getDateInpputsOptions/getDateInpputsOptions'
-import {FormType} from '../../../../types/formType'
-import {SelectField} from '../../../ui/SelectField/SelectField'
+import {TextField} from '@ui/TextField/TextField'
+import {useCard} from '@store/store'
+// @ts-ignore
+import {CardData} from '@types/storeType'
+// @ts-ignore
+import {FormType} from '@types/formType'
+import {getDateInputsOptions} from '@utils/getDateInpputsOptions/getDateInpputsOptions'
+import {SelectField} from '@ui/SelectField/SelectField'
 
 
 interface FormProps {

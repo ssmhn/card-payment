@@ -21,7 +21,13 @@
     ],
     "paths": {
       "@css/*": ["./css/*"],
-      "@page/*": ["./components/pages/*"]
+      "@page/*": ["./components/pages/*"],
+      "@ui/*": ["./components/ui/*"],
+      "@icons/*": ["./components/icons/*"],
+      "@motions/*": ["./motions/*"],
+      "@store/*": ["./store/*"],
+      "@types/*": ["./types/*"],
+      "@utils/*": ["./utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

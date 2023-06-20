@@ -3,8 +3,8 @@
 import classes from './Card.module.scss'
 import {FC, PropsWithChildren, useState} from 'react'
 import cn from 'classnames'
-import {CardBack} from '@page/Main/Card/CardBack/CardBack'
-import {CardFront} from '@page/Main/Card/CardFront/CardFront'
+import {CardBack} from './CardBack/CardBack'
+import {CardFront} from './CardFront/CardFront'
 
 interface CardProps {
 

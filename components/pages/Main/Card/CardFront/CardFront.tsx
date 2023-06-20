@@ -1,9 +1,9 @@
 import classes from './CardFront.module.scss'
 import {FC, PropsWithChildren} from 'react'
 import cn from 'classnames'
-import {useCard} from '../../../../../store/store'
-import {AnimatedNumbers} from '../../../../ui/AnimatedNumbers/AnimatedNumbers'
-import {Chip} from '../../../../icons/Chip'
+import {useCard} from '@store//store'
+import {AnimatedNumbers} from '@ui/AnimatedNumbers/AnimatedNumbers'
+import {Chip} from '@icons/Chip'
 
 interface CardFrontProps {
 

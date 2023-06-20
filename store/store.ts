@@ -1,5 +1,6 @@
 import create from 'zustand'
-import {StoreType} from '../types/storeType'
+// @ts-ignore
+import {StoreType} from '@types/storeType'
 
 export const useCard = create<StoreType>(set => (
 	{
