@@ -1,4 +1,5 @@
 import axios from 'axios'
+// @ts-ignore
 import {CardInfoType} from '@types/cardInfoType'
 
 export const checkBin = async (bin: string) => {
