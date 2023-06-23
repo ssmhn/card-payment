@@ -1,6 +1,9 @@
 export type StoreType = {
 	cardData: CardData,
-	changeData: (name: string, value: string) => void
+	changeData: (name: string, value: string) => void,
+	cardRotate: boolean,
+	changeCardRotate: (value: boolean) => void,
+	removeData: () => void
 }
 
 export type CardData = {

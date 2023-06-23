@@ -1,5 +1,5 @@
 import classes from './TextField.module.scss'
-import {ChangeEvent, FC, PropsWithChildren} from 'react'
+import {ChangeEvent, FocusEvent, FC, PropsWithChildren} from 'react'
 import cn from 'classnames'
 
 interface TextFieldProps {
@@ -12,9 +12,24 @@ interface TextFieldProps {
 	className?: string
 	length?: number
 	type?: 'password'
+	onFocus?: (e: FocusEvent<HTMLInputElement>) => void
+	onBlur?: (e: FocusEvent<HTMLInputElement>) => void
 }
 
-export const TextField: FC<PropsWithChildren<TextFieldProps>> = ({id, placeholder, title, name, value, onChange, className, length, type}) => {
+export const TextField: FC<PropsWithChildren<TextFieldProps>> = (
+	{
+		id,
+		placeholder,
+		title,
+		name,
+		value,
+		onChange,
+		className,
+		length,
+		type,
+		onFocus,
+		onBlur
+	}) => {
 	return (
 		<div className={cn(classes.TextField, className)}>
             <label
@@ -24,6 +39,8 @@ export const TextField: FC<PropsWithChildren<TextFieldProps>> = ({id, placeholde
                 {title}
             </label>
             <input
+	            onBlur={onBlur}
+	            onFocus={onFocus}
                 id={id}
                 type={type || 'text'}
                 placeholder={placeholder}

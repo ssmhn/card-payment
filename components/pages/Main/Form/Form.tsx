@@ -1,5 +1,5 @@
 import classes from './Form.module.scss'
-import {ChangeEvent, FC, PropsWithChildren, useEffect, useState} from 'react'
+import {ChangeEvent, FocusEvent, FC, PropsWithChildren, useEffect, useState} from 'react'
 import {TextField} from '@ui/TextField/TextField'
 import {useCard} from '@store/store'
 // @ts-ignore
@@ -8,6 +8,9 @@ import {CardData} from '@types/storeType'
 import {FormType} from '@types/formType'
 import {getDateInputsOptions} from '@utils/getDateInpputsOptions/getDateInpputsOptions'
 import {SelectField} from '@ui/SelectField/SelectField'
+import {changeNumbersValue} from '@utils/changeNumbersValue/changeNumbersValue'
+import {defaultCardData} from '../../../../constants/defaultCardData'
+import {validateForm} from '@utils/validateForm/validateForm'
 
 
 interface FormProps {
@@ -22,47 +25,30 @@ const initialData: CardData = {
 	year: ''
 }
 
-const defaultData: CardData = {
-	number: '################',
-	cvc: '***',
-	name: 'ivanov ivan',
-	month: 'MM',
-	year: 'YY'
-}
-
 const initialDateSelectValues: FormType = {
 	months: [],
 	years: []
 }
 
 export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
-	const {changeData} = useCard(state => state)
+	const {changeData, changeCardRotate, removeData} = useCard(state => state)
 	const [formData, setFormData] = useState(initialData)
 	const [dateSelectValues, setDateSelectValues] = useState<FormType>(initialDateSelectValues)
 	
-	const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+	const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 		const name = e.target.name
 		let value = e.target.value
 		
-		if (e.target.name === 'number') {
-			const hash = 16 - value.length
-			for (let i = 0; i < hash; ++i) {
-				value += '#'
-			}
+		if (name === 'name') {
+			value = value.replace(/[^A-Za-z ]/g, '')
 		}
 		
-		if (e.target.name === 'cvc') {
-			const hash = 3 - value.length
-			for (let i = 0; i < hash; ++i) {
-				value += '*'
-			}
+		if (name === 'number') {
+			value = changeNumbersValue(value, '#', 16)
 		}
 		
-		if (e.target.value)
-			changeData(name, value)
-		else {
-			// @ts-ignore
-			changeData(name, defaultData[name])
+		if (name === 'cvc') {
+			value = changeNumbersValue(value, '*', 3)
 		}
 		
 		setFormData((prev) => {
@@ -73,24 +59,33 @@ export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
 					.replaceAll('*', '')
 			}
 		})
-	}
-	
-	const onChangeSelectHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-		const name = e.target.name
-		let value = e.target.value
+		
 		if (name === 'year') {
 			value = value.slice(2, 4)
-		} else {
+		}
+		
+		if (name === 'month') {
 			if (+value < 10) {
 				value = '0' + value
 			}
 		}
 		
-		changeData(name, value)
+		// @ts-ignore
+		value ? changeData(name, value) : changeData(name, defaultCardData[name])
+	}
+	
+	const onBlurOrFocusHandler = (eventType: 'blur' | 'focus') => {
+		changeCardRotate(eventType === 'focus')
+	}
+	
+	const sendForm = () => {
+		console.log(formData)
+		if (!validateForm(formData)) return
 		
-		setFormData((prev) => {
-			return {...prev, [name]: value}
-		})
+		alert('Form is Sended!')
+		
+		setFormData(initialData)
+		removeData()
 	}
 	
 	useEffect(() => {
@@ -132,6 +127,9 @@ export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
 						className={classes.Field}
 						onChange={onChangeHandler}
 						type={'password'}
+						length={3}
+						onFocus={() => onBlurOrFocusHandler('focus')}
+						onBlur={() => onBlurOrFocusHandler('blur')}
 					/>
 					
 					<SelectField
@@ -139,8 +137,9 @@ export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
 						id={'4'}
 						title={'Месяц'}
 						name={'month'}
-						onChange={onChangeSelectHandler}
+						onChange={onChangeHandler}
 						className={classes.Field}
+						value={formData.month}
 					/>
 					
 					<SelectField
@@ -148,12 +147,13 @@ export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
 						id={'5'}
 						title={'Год'}
 						name={'year'}
-						onChange={onChangeSelectHandler}
+						onChange={onChangeHandler}
 						className={classes.Field}
+						value={formData.year}
 					/>
 				</div>
 				
-				<button className={classes.Button}>Оплатить</button>
+				<button onClick={sendForm} className={classes.Button}>Оплатить</button>
 			</div>
         </div>
 	)
