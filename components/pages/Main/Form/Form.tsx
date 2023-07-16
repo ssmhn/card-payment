@@ -1,5 +1,5 @@
 import classes from './Form.module.scss'
-import {ChangeEvent, FocusEvent, FC, PropsWithChildren, useEffect, useState} from 'react'
+import {ChangeEvent, FC, PropsWithChildren, useEffect, useState} from 'react'
 import {TextField} from '@ui/TextField/TextField'
 import {useCard} from '@store/store'
 // @ts-ignore
@@ -11,6 +11,7 @@ import {SelectField} from '@ui/SelectField/SelectField'
 import {changeNumbersValue} from '@utils/changeNumbersValue/changeNumbersValue'
 import {defaultCardData} from '../../../../constants/defaultCardData'
 import {validateForm} from '@utils/validateForm/validateForm'
+import {checkBin} from '../../../../api/checkBin'
 
 
 interface FormProps {
@@ -31,20 +32,34 @@ const initialDateSelectValues: FormType = {
 }
 
 export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
-	const {changeData, changeCardRotate, removeData} = useCard(state => state)
+	const {changeData, changeCardRotate, removeData, changeFieldBorder} = useCard(state => state)
 	const [formData, setFormData] = useState(initialData)
 	const [dateSelectValues, setDateSelectValues] = useState<FormType>(initialDateSelectValues)
 	
 	const onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 		const name = e.target.name
 		let value = e.target.value
+		let formValue = e.target.value
 		
 		if (name === 'name') {
 			value = value.replace(/[^A-Za-z ]/g, '')
 		}
 		
 		if (name === 'number') {
-			value = changeNumbersValue(value, '#', 16)
+			if (formData.number.length < formValue.length)
+				if (formValue.length === 4 || formValue.length === 9 || formValue.length === 14) formValue += ' '
+			else {
+				if (formValue.length === 15) formValue.slice(0, 15)
+				if (formValue.length === 10) formValue.slice(0, 10)
+				if (formValue.length === 5) formValue.slice(0, 5)
+			}
+			value = changeNumbersValue(value.replaceAll(' ', ''), '#', 16)
+			
+			const numbers = value.replaceAll('#', '')
+			
+			if (numbers.length === 6) {
+				checkBin(numbers)
+			}
 		}
 		
 		if (name === 'cvc') {
@@ -54,9 +69,11 @@ export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
 		setFormData((prev) => {
 			return {
 				...prev,
-				[name]: value
-					.replaceAll('#', '')
-					.replaceAll('*', '')
+				[name]: name === 'number' ?
+					formValue :
+					value
+						.replaceAll('#', '')
+						.replaceAll('*', '')
 			}
 		})
 		
@@ -79,7 +96,6 @@ export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
 	}
 	
 	const sendForm = () => {
-		console.log(formData)
 		if (!validateForm(formData)) return
 		
 		alert('Form is Sended!')
@@ -98,23 +114,28 @@ export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
 			<div className={classes.FormWrapper}>
 				<TextField
 					id={'1'}
-					placeholder={'ivanov ivan'}
-					title={'Владелец карты'}
-					name={'name'}
-					value={formData.name}
-					className={classes.Field}
-					onChange={onChangeHandler}
-				/>
-				
-				<TextField
-					id={'2'}
 					placeholder={'1234 5678 9012 3456'}
 					title={'Номер карты'}
 					name={'number'}
 					value={formData.number}
 					className={classes.Field}
 					onChange={onChangeHandler}
-					length={16}
+					length={19}
+					onFocus={() => changeFieldBorder('number')}
+					onBlur={() => changeFieldBorder()}
+					autocomplete={'cc-number'}
+				/>
+				
+				<TextField
+					id={'2'}
+					placeholder={'ivanov ivan'}
+					title={'Владелец карты'}
+					name={'name'}
+					value={formData.name}
+					className={classes.Field}
+					onChange={onChangeHandler}
+					onFocus={() => changeFieldBorder('name')}
+					onBlur={() => changeFieldBorder()}
 				/>
 				
 				<div className={classes.Row}>
@@ -140,6 +161,8 @@ export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
 						onChange={onChangeHandler}
 						className={classes.Field}
 						value={formData.month}
+						onFocus={() => changeFieldBorder('date')}
+						onBlur={() => changeFieldBorder()}
 					/>
 					
 					<SelectField
@@ -150,6 +173,8 @@ export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
 						onChange={onChangeHandler}
 						className={classes.Field}
 						value={formData.year}
+						onFocus={() => changeFieldBorder('date')}
+						onBlur={() => changeFieldBorder()}
 					/>
 				</div>
 				

@@ -4,6 +4,8 @@ export type StoreType = {
 	cardRotate: boolean,
 	changeCardRotate: (value: boolean) => void,
 	removeData: () => void
+	fieldBorder: string | undefined
+	changeFieldBorder: (value?: string) => void
 }
 
 export type CardData = {

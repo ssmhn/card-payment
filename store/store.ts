@@ -21,6 +21,11 @@ export const useCard = create<StoreType>(set => (
 		changeCardRotate: (value: boolean) => set(state => ({
 			...state,
 			cardRotate: value
+		})),
+		fieldBorder: undefined,
+		changeFieldBorder: (value?: string) => set(state => ({
+			...state,
+			fieldBorder: value
 		}))
 	}
 ))

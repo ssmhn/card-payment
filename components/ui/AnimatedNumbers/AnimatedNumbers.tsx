@@ -11,9 +11,21 @@ interface AnimatedNumbersProps {
     blockSize?: number
     blockCount?: number
 	className?: string
+	defaultChar: string
+	hide?: boolean
 }
 
-export const AnimatedNumbers: FC<PropsWithChildren<AnimatedNumbersProps>> = ({numbers, charWidth, defaultMargin, blockSize, blockCount, className}) => {
+export const AnimatedNumbers: FC<PropsWithChildren<AnimatedNumbersProps>> = (
+	{
+		numbers,
+		charWidth,
+		defaultMargin,
+		blockSize,
+		blockCount,
+		className,
+		defaultChar,
+		hide
+	}) => {
 	return (
         <div className={className}>
             {
@@ -28,7 +40,7 @@ export const AnimatedNumbers: FC<PropsWithChildren<AnimatedNumbersProps>> = ({nu
                             initial={false}
                         >
                             {
-                                el === '*' ?
+                                el === defaultChar ?
                                     (
                                         <motion.span
                                             initial={'initial'}
@@ -55,9 +67,8 @@ export const AnimatedNumbers: FC<PropsWithChildren<AnimatedNumbersProps>> = ({nu
                                                 left: `${i * charWidth + (defaultMargin || 0) * margin}px`
                                             }}
                                             className={classes.Number}
-                                        >
-                                            {el}
-                                        </motion.span>
+                                            dangerouslySetInnerHTML={{__html: hide ? '&#183;' : el}}
+                                        />
                                     )
                             }
                         </AnimatePresence>

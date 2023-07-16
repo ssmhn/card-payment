@@ -22,6 +22,8 @@ export const CardBack: FC<PropsWithChildren<CardBackProps>> = ({}) => {
                             className={classes.Numbers}
                             numbers={cvc}
                             charWidth={12}
+                            defaultChar={'*'}
+                            hide
                         />
                     </div>
                 </div>

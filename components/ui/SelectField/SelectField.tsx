@@ -10,9 +10,11 @@ interface SelectFieldProps {
     onChange: (e: ChangeEvent<HTMLSelectElement>) => void
     className?: string
 	value: string
+	onFocus?: () => void
+	onBlur?: () => void
 }
 
-export const SelectField: FC<PropsWithChildren<SelectFieldProps>> = ({options, id, name, className, onChange, title, value}) => {
+export const SelectField: FC<PropsWithChildren<SelectFieldProps>> = ({options, id, name, className, onChange, title, value, onFocus, onBlur}) => {
 	
 	return (
         <div className={cn(classes.TextField, className)}>
@@ -28,6 +30,8 @@ export const SelectField: FC<PropsWithChildren<SelectFieldProps>> = ({options, i
                 name={name}
                 id={id}
                 value={value}
+                onFocus={onFocus}
+                onBlur={onBlur}
             >
                 {options.map((el, i) => (
                     <option key={i+el+name} value={el}>{el}</option>

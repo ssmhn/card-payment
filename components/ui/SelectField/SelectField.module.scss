@@ -27,4 +27,10 @@
 	background-repeat: no-repeat;
 	background-position: right;
 	background-size: 48px 32px;
+	transition: all .2s ease;
+	cursor: pointer;
+
+	&:hover, &.Active {
+		border-color: #5dd557;
+	}
 }

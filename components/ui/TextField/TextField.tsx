@@ -14,6 +14,7 @@ interface TextFieldProps {
 	type?: 'password'
 	onFocus?: (e: FocusEvent<HTMLInputElement>) => void
 	onBlur?: (e: FocusEvent<HTMLInputElement>) => void
+	autocomplete?: string
 }
 
 export const TextField: FC<PropsWithChildren<TextFieldProps>> = (
@@ -28,8 +29,10 @@ export const TextField: FC<PropsWithChildren<TextFieldProps>> = (
 		length,
 		type,
 		onFocus,
-		onBlur
+		onBlur,
+		autocomplete
 	}) => {
+	
 	return (
 		<div className={cn(classes.TextField, className)}>
             <label
@@ -49,6 +52,7 @@ export const TextField: FC<PropsWithChildren<TextFieldProps>> = (
                 onChange={onChange}
                 className={classes.Input}
                 maxLength={length}
+	            autoComplete={autocomplete}
             />
         </div>
 	)
