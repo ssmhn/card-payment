@@ -46,6 +46,9 @@ export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
 		}
 		
 		if (name === 'number') {
+			value = value.replace(/[^\d]/g, '')
+			formValue = formValue.replace(/[^\s\d]/g, '')
+
 			if (formData.number.length < formValue.length)
 				if (formValue.length === 4 || formValue.length === 9 || formValue.length === 14) formValue += ' '
 			else {
@@ -63,6 +66,7 @@ export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
 		}
 		
 		if (name === 'cvc') {
+			value = value.replace(/[^\d]/g, '')
 			value = changeNumbersValue(value, '*', 3)
 		}
 		

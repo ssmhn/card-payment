@@ -20,7 +20,7 @@ export const SelectField: FC<PropsWithChildren<SelectFieldProps>> = ({options, i
         <div className={cn(classes.TextField, className)}>
             <label
                 className={classes.Label}
-                htmlFor={id}
+                htmlFor={'i' + id}
             >
                 {title}
             </label>
@@ -28,7 +28,7 @@ export const SelectField: FC<PropsWithChildren<SelectFieldProps>> = ({options, i
                 className={classes.Select}
                 onChange={onChange}
                 name={name}
-                id={id}
+                id={'i' + id}
                 value={value}
                 onFocus={onFocus}
                 onBlur={onBlur}

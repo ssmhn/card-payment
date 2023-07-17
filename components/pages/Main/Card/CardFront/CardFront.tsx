@@ -16,12 +16,12 @@ export const CardFront: FC<PropsWithChildren<CardFrontProps>> = ({}) => {
     const {month, year, name, number} = useCard(state => state.cardData)
     const active = useCard(state => state.fieldBorder)
     
-    const focusInput = (e: MouseEvent<HTMLDivElement | HTMLSpanElement>, name: string) => {
+    const focusInput = (e: MouseEvent<HTMLDivElement | HTMLSpanElement>, id: string) => {
         e.stopPropagation()
         
-        const input = document.getElementsByName(name)!
+        const input = document.getElementById(id)
         
-        input[0].focus()
+        input && input.focus()
     }
     
     return (
@@ -33,7 +33,7 @@ export const CardFront: FC<PropsWithChildren<CardFrontProps>> = ({}) => {
             <div className={classes.FrontMiddle}>
                 <div
                     className={cn(classes.NumbersWrapper, {[classes.Border]: active === 'number'})}
-                    onClick={(e) => focusInput(e, 'number')}
+                    onClick={(e) => focusInput(e, 'i1')}
                 >
                     <AnimatedNumbers
                         className={classes.Numbers}
@@ -42,7 +42,7 @@ export const CardFront: FC<PropsWithChildren<CardFrontProps>> = ({}) => {
                         defaultMargin={20}
                         blockCount={4}
                         blockSize={4}
-                        defaultChar={'*'}
+                        defaultChar={'#'}
                     />
                 </div>
             </div>
@@ -52,7 +52,7 @@ export const CardFront: FC<PropsWithChildren<CardFrontProps>> = ({}) => {
                     <span className={classes.FooterTitle}>Владелец карты</span>
                     <div
                         className={cn(classes.Text, {[classes.Border]: active === 'name'})}
-                        onClick={(e) => focusInput(e, 'name')}
+                        onClick={(e) => focusInput(e, 'i2')}
                     >
                         <AnimatePresence>
                             {name.toUpperCase().split('').map((el, i, arr) => (
@@ -82,7 +82,7 @@ export const CardFront: FC<PropsWithChildren<CardFrontProps>> = ({}) => {
                                 variants={textMotion}
                                 className={cn(classes.FooterText, classes.Absolute)}
                                 style={{right: '29px'}}
-                                onClick={(e) => focusInput(e, 'month')}
+                                onClick={(e) => focusInput(e, 'i4')}
                             >
                                 {month}
                             </motion.span>
@@ -101,7 +101,7 @@ export const CardFront: FC<PropsWithChildren<CardFrontProps>> = ({}) => {
                                 exit={'exit'}
                                 variants={textMotion}
                                 className={cn(classes.FooterText, classes.Absolute)}
-                                onClick={(e) => focusInput(e, 'year')}
+                                onClick={(e) => focusInput(e, 'i5')}
                             >
                                 {year}
                             </motion.span>

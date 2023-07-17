@@ -37,14 +37,14 @@ export const TextField: FC<PropsWithChildren<TextFieldProps>> = (
 		<div className={cn(classes.TextField, className)}>
             <label
                 className={classes.Label}
-                htmlFor={id}
+                htmlFor={'i' + id}
             >
                 {title}
             </label>
             <input
 	            onBlur={onBlur}
 	            onFocus={onFocus}
-                id={id}
+                id={'i' + id}
                 type={type || 'text'}
                 placeholder={placeholder}
                 name={name}

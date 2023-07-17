@@ -67,7 +67,7 @@ export const AnimatedNumbers: FC<PropsWithChildren<AnimatedNumbersProps>> = (
                                                 left: `${i * charWidth + (defaultMargin || 0) * margin}px`
                                             }}
                                             className={classes.Number}
-                                            dangerouslySetInnerHTML={{__html: hide ? '&#183;' : el}}
+                                            dangerouslySetInnerHTML={{__html: hide ? '&#183;' : i > 3 && i < 12 ? '*' : el}}
                                         />
                                     )
                             }
