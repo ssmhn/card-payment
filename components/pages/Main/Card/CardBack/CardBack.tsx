@@ -24,7 +24,7 @@ export const CardBack: FC<PropsWithChildren<CardBackProps>> = ({}) => {
             <div className={classes.MagnetLine}></div>
             <div className={classes.CVCLine}>
                 <div className={classes.BackCardHolderName}>{name}</div>
-                <div onClick={(e) => focusInput(e, 'i4')} className={classes.CVC}>
+                <div onClick={(e) => focusInput(e, 'i3')} className={classes.CVC}>
                     <div className={classes.CVCWrapper}>
                         <AnimatedNumbers
                             className={classes.Numbers}

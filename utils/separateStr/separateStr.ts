@@ -1,0 +1,1 @@
+export const separateStr = (str: string, separateCnt: number): string[] => str.length ? [str.slice(0, separateCnt), ...separateStr(str.slice(separateCnt), separateCnt)] : []

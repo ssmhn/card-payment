@@ -67,6 +67,23 @@ export const CardFront: FC<PropsWithChildren<CardFrontProps>> = ({}) => {
                                 />
                             ))}
                         </AnimatePresence>
+                        <motion.span
+                            initial={{
+                                display: 'block'
+                            }}
+                            animate={{
+                                display: 'none',
+                                transition: {
+                                    delay: 0.6
+                                }
+                            }}
+                            style={{
+                                position: 'absolute',
+                                left: '1px',
+                                top: '1px',
+                                transform: 'translateY(100%)'
+                            }}
+                        >{name.toUpperCase()}</motion.span>
                     </div>
                 </div>
                 
@@ -106,6 +123,24 @@ export const CardFront: FC<PropsWithChildren<CardFrontProps>> = ({}) => {
                                 {year}
                             </motion.span>
                         </AnimatePresence>
+
+                        <motion.span
+                            initial={{
+                                display: 'block'
+                            }}
+                            animate={{
+                                display: 'none',
+                                transition: {
+                                    delay: 0.6
+                                }
+                            }}
+                            style={{
+                                position: 'absolute',
+                                right: '5.4px',
+                                top: '0',
+                                transform: 'translateY(100%)'
+                            }}
+                        >{month}/{year}</motion.span>
                     </div>
                 </div>
             </div>

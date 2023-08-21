@@ -39,15 +39,60 @@
 }
 
 .Button {
-	width: 235px;
-	padding: 20px 0;
-	text-align: center;
-	border-radius: 10px;
-	background-color: #4aa93e;
 	position: relative;
-	margin-top: 30px;
-	font-size: 20px;
-	line-height: 20px;
+	margin: 30px auto 0 auto;
+	width: 235px;
+	max-height: 60px;
+	cursor: default;
+
+	&:hover {
+		.Rect {
+			stroke-width: 2px;
+			stroke-dashoffset: 0;
+			stroke-dasharray: 760;
+		}
+
+		.Stop1 {
+			stop-color: #6a994e;
+		}
+
+		.Stop2 {
+			stop-color: #386641;
+		}
+
+		.Text {
+			color: #fff;
+		}
+	}
+}
+
+.Link {
+	color: #fff;
+}
+
+.Rect {
+	stroke-dasharray: 140 540;
+	stroke-dashoffset: -324;
+	stroke-width: 8px;
+	fill: url(#gradient);
+	stroke: #fff;
+	border-bottom: 5px solid black;
+	transition: stroke-width 1s, stroke-dashoffset 1s, stroke-dasharray 1s;
+}
+
+.Text {
+	font-size: 22px;
+	line-height: 32px;
+	letter-spacing: 4px;
+	color: #000;
+	top: -48px;
+	position: relative;
+	text-align: center;
+	transition: all .5s ease;
+}
+
+.Stop1, .Stop2 {
+	transition: .5s all;
 }
 
 @media only screen and (min-width: 860px) and (max-width: 1260px) {

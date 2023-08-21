@@ -12,6 +12,7 @@ import {changeNumbersValue} from '@utils/changeNumbersValue/changeNumbersValue'
 import {defaultCardData} from '../../../../constants/defaultCardData'
 import {validateForm} from '@utils/validateForm/validateForm'
 import {checkBin} from '../../../../api/checkBin'
+import {separateStr} from "@utils/separateStr/separateStr";
 
 
 interface FormProps {
@@ -42,24 +43,22 @@ export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
 		let formValue = e.target.value
 		
 		if (name === 'name') {
-			value = value.replace(/[^A-Za-z ]/g, '')
+			value = value.replace(/[^A-Za-z ]/g, '').toUpperCase()
 		}
 		
 		if (name === 'number') {
-			value = value.replace(/[^\d]/g, '')
-			formValue = formValue.replace(/[^\s\d]/g, '')
+			value = value.replace(/[^\d]/g, '').replaceAll(' ', '')
+			formValue = formValue.replace(/[^\s\d]/g, '').replaceAll(' ', '')
 
-			if (formData.number.length < formValue.length)
-				if (formValue.length === 4 || formValue.length === 9 || formValue.length === 14) formValue += ' '
-			else {
-				if (formValue.length === 15) formValue.slice(0, 15)
-				if (formValue.length === 10) formValue.slice(0, 10)
-				if (formValue.length === 5) formValue.slice(0, 5)
-			}
-			value = changeNumbersValue(value.replaceAll(' ', ''), '#', 16)
+			if (value.length > 16) value = value.slice(0, 16)
+			if (formValue.length > 16) formValue = formValue.slice(0, 16)
+
+			formValue = separateStr(formValue, 4).join(' ')
+
+			value = changeNumbersValue(value, '#', 16)
 			
 			const numbers = value.replaceAll('#', '')
-			
+
 			if (numbers.length === 6) {
 				checkBin(numbers)
 			}
@@ -181,8 +180,21 @@ export const Form: FC<PropsWithChildren<FormProps>> = ({}) => {
 						onBlur={() => changeFieldBorder()}
 					/>
 				</div>
-				
-				<button onClick={sendForm} className={classes.Button}>Оплатить</button>
+
+				<div className={classes.Button}>
+					<button onClick={sendForm} className={classes.Link}>
+						<svg className={classes.Gradient} height="60" width="235" xmlns="http://www.w3.org/2000/svg">
+							<defs>
+								<linearGradient id="gradient">
+									<stop className={classes.Stop1} offset="0%" stopColor="#06d6a0" />
+									<stop className={classes.Stop2} offset="95%" stopColor="#06d6a0" />
+								</linearGradient>
+							</defs>
+							<rect rx={10} ry={10} className={classes.Rect} height="60" width="235" />
+						</svg>
+						<div className={classes.Text}>Оплатить</div>
+					</button>
+				</div>
 			</div>
         </div>
 	)
